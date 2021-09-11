@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class Counter {
+    static final Object local = new Object();
     static int counter = 0;
     public static final int N_THREADS = 4;
 
@@ -28,8 +29,10 @@ public class Counter {
 
     static CompletableFuture<Void> runCounting(ExecutorService executorService) {
         return CompletableFuture.runAsync(() -> {
-            for (int i = 0; i < 1000000; i++) {
-                Counter.counter = Counter.counter + 1;
+            synchronized (local) {
+                for (int i = 0; i < 1000000; i++) {
+                    Counter.counter = Counter.counter + 1;
+                }
             }
         }, executorService);
     }

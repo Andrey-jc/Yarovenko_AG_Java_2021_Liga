@@ -1,16 +1,23 @@
 package ru.philosophyit.internship.javabase.time;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Main {
     public static void main(String ...args) {
-        System.out.println(DateTimeFormatter.ISO_INSTANT.format(Calendar.getInstance().toInstant()));
+//        System.out.println(DateTimeFormatter.ISO_INSTANT.format(Calendar.getInstance().toInstant()));
+
+        CalendarBuilder calendarBuilder = new CalendarBuilder();
+
+        calendarBuilder.run();
 
         // Отобразите календарь текущего месяца в консоли
         // например:
         // пн вт ср чт пт сб вс
         // 30 31 1  2  3  4  5
         // и т.д.
+
     }
 }

@@ -25,6 +25,6 @@ public class Completable {
             return first + "world";
         }))
         .thenApply(Function.identity())
-        .thenAccept(System.out::println);
+        .thenAccept(System.out::println).join();
     }
 }
