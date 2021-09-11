@@ -54,7 +54,7 @@ public class CalendarBuilder {
         }
     }
 
-//    основной вывод дней месяца текущего
+    //    основной вывод дней месяца текущего
     public void displayDaysCurrentMonth() {
         while (CURRENT_MONTH == presentDay.getMonth().getValue()) {
             int week = presentDay.getDayOfWeek().getValue();

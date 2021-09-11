@@ -6,9 +6,16 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String ...args) throws IOException {
-        System.out.println(Files.readString(Path.of("src/main/resources/hello.txt")));
+        System.out.println(Files.readString(Path.of("/home/stuffing/Documents/Yarovenko_AG_Java_2021_Liga/javabase/src/main/resources/hello.txt")));
 
-        // Отобразите рекурсивно дерево директорий src/main/java/ru/philosophyit/internship/javabase
+
+        String dirPath = "/home/stuffing/Documents/Yarovenko_AG_Java_2021_Liga/javabase/src";
+
+        FileScanner fileScanner = new FileScanner();
+        fileScanner.run(dirPath);
+
+
+            // Отобразите рекурсивно дерево директорий src/main/java/ru/philosophyit/internship/javabase
         // например 
         // src/main/java/ru/philosophyit/internship/javabase/files/Main.java
         // src/main/java/ru/philosophyit/internship/javabase/locks/DeadLock.java
