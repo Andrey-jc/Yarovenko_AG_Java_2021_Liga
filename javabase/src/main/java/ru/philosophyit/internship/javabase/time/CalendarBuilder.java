@@ -35,6 +35,7 @@ public class CalendarBuilder {
         }
     }
 
+    // начало след месяца при необходимости
     public void nextMonthDays() {
         int restDayWeek = 7 - (presentDay.getDayOfWeek().getValue());
         for (int i = 0; i < restDayWeek; i++) {
@@ -42,6 +43,7 @@ public class CalendarBuilder {
         }
     }
 
+    // вывод дней с предыдущего месяца
     public void daysOfLastMonth() {
         if (presentDay.getDayOfWeek().getValue() != 1) {
             int dayOfTheWeek = presentDay.getDayOfWeek().getValue();
@@ -52,6 +54,7 @@ public class CalendarBuilder {
         }
     }
 
+//    основной вывод дней месяца текущего
     public void displayDaysCurrentMonth() {
         while (CURRENT_MONTH == presentDay.getMonth().getValue()) {
             int week = presentDay.getDayOfWeek().getValue();
