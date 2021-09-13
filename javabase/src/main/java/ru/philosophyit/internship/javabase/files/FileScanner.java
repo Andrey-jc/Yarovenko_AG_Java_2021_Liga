@@ -22,9 +22,6 @@ public class FileScanner {
                         File.separator + sDirList[i]);
                 System.out.println();
             } else {
-//                System.out.println(szDir +
-//                        File.separator + sDirList[i]);
-
                 run(dirPath +
                         File.separator + sDirList[i]);
             }

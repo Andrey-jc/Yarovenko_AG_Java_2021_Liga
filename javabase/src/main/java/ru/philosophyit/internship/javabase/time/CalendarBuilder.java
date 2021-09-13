@@ -37,9 +37,10 @@ public class CalendarBuilder {
 
     // начало след месяца при необходимости
     public void nextMonthDays() {
-        int restDayWeek = 7 - (presentDay.getDayOfWeek().getValue());
-        for (int i = 0; i < restDayWeek; i++) {
+        int restDayWeek =presentDay.getDayOfWeek().getValue() - 1;
+        for (int i = 0; restDayWeek < 7; i++) {
             System.out.print(" " + presentDay.plusDays(i).getDayOfMonth() + " ");
+            restDayWeek++;
         }
     }
 
@@ -48,7 +49,7 @@ public class CalendarBuilder {
         if (presentDay.getDayOfWeek().getValue() != 1) {
             int dayOfTheWeek = presentDay.getDayOfWeek().getValue();
             LocalDateTime restDayMonth = presentDay.minusDays(dayOfTheWeek);
-            for (int i = 0; i < dayOfTheWeek; i++) {
+            for (int i = 1; i < dayOfTheWeek; i++) {
                 System.out.print(restDayMonth.plusDays(i).getDayOfMonth() + " ");
             }
         }
@@ -58,14 +59,13 @@ public class CalendarBuilder {
     public void displayDaysCurrentMonth() {
         while (CURRENT_MONTH == presentDay.getMonth().getValue()) {
             int week = presentDay.getDayOfWeek().getValue();
-            // if day week
-            if (week == 7) {
-                System.out.println();
-            }
             if (presentDay.getDayOfMonth() < 10) {
                 System.out.print(" " + presentDay.getDayOfMonth() + " ");
             } else {
                 System.out.print(presentDay.getDayOfMonth() + " ");
+            }
+            if (week == 7) {
+                System.out.println();
             }
             presentDay = presentDay.plusDays(1L);
         }

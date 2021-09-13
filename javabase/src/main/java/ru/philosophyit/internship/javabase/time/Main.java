@@ -1,13 +1,11 @@
 package ru.philosophyit.internship.javabase.time;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Main {
     public static void main(String ...args) {
-//        System.out.println(DateTimeFormatter.ISO_INSTANT.format(Calendar.getInstance().toInstant()));
+        System.out.println(DateTimeFormatter.ISO_INSTANT.format(Calendar.getInstance().toInstant()));
 
         CalendarBuilder calendarBuilder = new CalendarBuilder();
 
