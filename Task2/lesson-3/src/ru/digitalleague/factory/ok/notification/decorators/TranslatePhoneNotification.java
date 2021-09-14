@@ -5,22 +5,22 @@ import ru.digitalleague.factory.ok.notification.PhoneNotification;
 
 public class TranslatePhoneNotification implements Notification {
 
-    private final PhoneNotification COMPONENT;
+    private final PhoneNotification component;
     private String body;
     private String phoneNumber;
 
-    public TranslatePhoneNotification(PhoneNotification COMPONENT) {
-        this.COMPONENT = COMPONENT;
+    public TranslatePhoneNotification(PhoneNotification component) {
+        this.component = component;
     }
 
     //    определяем язык по коду номера если не определили то стандартный язык вывода Английский
     private String localUser(String number) {
-        phoneNumber = COMPONENT.getUser().getPhone();
+        phoneNumber = component.getUser().getPhone();
         String text;
         String codeCountry = number.substring(1, 2);
         switch (codeCountry) {
             case "7":
-                text = COMPONENT.getText();
+                text = component.getText();
                 break;
             case "8":
                 text = LanguageNotification.CHINESE.getPhoneWord();
@@ -67,8 +67,8 @@ public class TranslatePhoneNotification implements Notification {
 
     @Override
     public String getText() {
-        COMPONENT.getText();
-        return String.format(localUser(COMPONENT.getUser().getPhone()),
+        component.getText();
+        return String.format(localUser(component.getUser().getPhone()),
                 phoneNumber,
                 body
                 );

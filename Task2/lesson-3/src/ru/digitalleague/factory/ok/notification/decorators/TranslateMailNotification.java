@@ -5,13 +5,13 @@ import ru.digitalleague.factory.ok.notification.Notification;
 
 public class TranslateMailNotification implements Notification {
 
-    private final MailNotification COMPONENT;
+    private final MailNotification component;
     private String hasAdvertisementText;
     private String body;
     String email;
 
-    public TranslateMailNotification(MailNotification COMPONENT) {
-        this.COMPONENT = COMPONENT;
+    public TranslateMailNotification(MailNotification component) {
+        this.component = component;
 
     }
 
@@ -19,10 +19,10 @@ public class TranslateMailNotification implements Notification {
     private String localUser(String number) {
         String text;
         String codeCountry = number.substring(1, 2);
-        email = COMPONENT.getUser().getEmail();
+        email = component.getUser().getEmail();
         switch (codeCountry) {
             case "7":
-                text = COMPONENT.getText();
+                text = component.getText();
                 break;
             case "8":
                 text = LanguageNotification.CHINESE.getText();
@@ -77,11 +77,11 @@ public class TranslateMailNotification implements Notification {
     @Override
     public String getText() {
 
-        COMPONENT.getText();
-        return String.format(localUser(COMPONENT.getUser().getPhone()), email,
-                COMPONENT.getUser().getName(),
+        component.getText();
+        return String.format(localUser(component.getUser().getPhone()), email,
+                component.getUser().getName(),
                 body,
-                COMPONENT.isHasAdvertisement() ? hasAdvertisementText : "");
+                component.isHasAdvertisement() ? hasAdvertisementText : "");
     }
 
 }
