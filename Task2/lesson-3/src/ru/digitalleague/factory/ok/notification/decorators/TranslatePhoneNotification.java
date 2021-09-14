@@ -13,6 +13,7 @@ public class TranslatePhoneNotification implements Notification {
         this.COMPONENT = COMPONENT;
     }
 
+    //    определяем язык по коду номера если не определили то стандартный язык вывода Английский
     private String localUser(String number) {
         phoneNumber = COMPONENT.getUser().getPhone();
         String text;

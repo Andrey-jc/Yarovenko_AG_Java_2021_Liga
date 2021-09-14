@@ -15,6 +15,7 @@ public class TranslateMailNotification implements Notification {
 
     }
 
+//    определяем язык по коду номера если не определили то стандартный язык вывода Английский
     private String localUser(String number) {
         String text;
         String codeCountry = number.substring(1, 2);
