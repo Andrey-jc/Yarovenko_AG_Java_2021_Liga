@@ -25,8 +25,6 @@ public enum LanguageNotification {
             "购买我们的产品！",
             "电话"
     ),
-    //    "\"Adresse: %s\nCher %s,\n%s%s\nMeilleures salutations, équipe de soutien!\"",
-//            "\n\nAchetez nos produits!\n", "Bonne journée!", "Téléphone #%s\n%s"
     FRENCH(
             "Address",
             "Cher",
@@ -51,8 +49,6 @@ public enum LanguageNotification {
             "¡Compra nuestros productos!",
             "Teléfono"
     ),
-    //               "\"Endereço: %s\nCaro %s,\n%s%s\nAtenciosamente, equipe de suporte!\"",
-//                    "\n\nCompre nossos produtos!\n", "Dia bom!", "Telefone #%s\n%s"
     PORTUGAL(
             "Endereço",
             "Caro",
