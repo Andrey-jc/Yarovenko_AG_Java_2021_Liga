@@ -25,6 +25,6 @@ public class MailNotification implements Notification {
     }
 
     public  String getText() {
-        return "\"%s: %s\n%s,%s.\n%s%s\n%s\n\"";
+        return "\"%s: %s\n%s,%s.\n%s%s\n%s\"";
     }
 }
