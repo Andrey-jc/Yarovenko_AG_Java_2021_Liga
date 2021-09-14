@@ -8,70 +8,68 @@ public class TranslatePhoneNotification implements Notification {
     private final PhoneNotification component;
     private String body;
     private String phoneNumber;
+    private String phoneWord;
 
     public TranslatePhoneNotification(PhoneNotification component) {
         this.component = component;
     }
 
     //    определяем язык по коду номера если не определили то стандартный язык вывода Английский
-    private String localUser(String number) {
+    private void localUser(String number) {
         phoneNumber = component.getUser().getPhone();
         String text;
         String codeCountry = number.substring(1, 2);
         switch (codeCountry) {
             case "7":
-                text = component.getText();
+                body = LanguageNotification.RUSSIAN.getBody();
+                phoneWord = LanguageNotification.RUSSIAN.getPhoneWord();
                 break;
             case "8":
-                text = LanguageNotification.CHINESE.getPhoneWord();
                 body = LanguageNotification.CHINESE.getBody();
+                phoneWord = LanguageNotification.CHINESE.getPhoneWord();
                 break;
             case "9":
-                text = LanguageNotification.UAE.getPhoneWord();
                 body = LanguageNotification.UAE.getBody();
+                phoneWord = LanguageNotification.UAE.getPhoneWord();
                 // отразил номер телефона предполагая что они все пишут справа на лево
                 phoneNumber = new StringBuilder(phoneNumber.substring(1, 12)).reverse().toString();
 
                 break;
             case "4":
-                text = LanguageNotification.GERMAN.getPhoneWord();
                 body = LanguageNotification.GERMAN.getBody();
+                phoneWord = LanguageNotification.GERMAN.getPhoneWord();
                 break;
             case "3":
                 codeCountry = number.substring(1, 3);
                 switch (codeCountry) {
                     case "34":
-                        text = LanguageNotification.SPAIN.getPhoneWord();
                         body = LanguageNotification.SPAIN.getBody();
+                        phoneWord = LanguageNotification.SPAIN.getPhoneWord();
                         break;
                     case "33":
-                        text = LanguageNotification.FRENCH.getPhoneWord();
                         body = LanguageNotification.FRENCH.getBody();
+                        phoneWord = LanguageNotification.FRENCH.getPhoneWord();
                         break;
                     case "35":
-                        text = LanguageNotification.PORTUGAL.getPhoneWord();
                         body = LanguageNotification.PORTUGAL.getBody();
+                        phoneWord = LanguageNotification.PORTUGAL.getPhoneWord();
                         break;
                     default:
-                        text = LanguageNotification.ENGLISH.getPhoneWord();
                         body = LanguageNotification.ENGLISH.getBody();
+                        phoneWord = LanguageNotification.ENGLISH.getPhoneWord();
                         break;
                 }
                 break;
             default:
-                text = LanguageNotification.ENGLISH.getPhoneWord();
                 body = LanguageNotification.ENGLISH.getBody();
+                phoneWord = LanguageNotification.ENGLISH.getPhoneWord();
         }
-        return text;
     }
 
     @Override
     public String getText() {
-        component.getText();
-        return String.format(localUser(component.getUser().getPhone()),
-                phoneNumber,
-                body
-                );
+        localUser(component.getUser().getPhone());
+        return String.format(component.getText(), phoneWord, phoneNumber, body);
     }
 
 }

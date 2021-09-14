@@ -19,21 +19,12 @@ public class MailNotification implements Notification {
         return user;
     }
 
-    public String getBody() {
-        return body;
-    }
 
     public boolean isHasAdvertisement() {
         return hasAdvertisement;
     }
 
-    public String getText() {
-        return String.format(
-                "Address: %s\nУважаемый %s,\n%s%s\nС уважением, команда поддержки!",
-                user.getEmail(),
-                user.getName(),
-                body,
-                hasAdvertisement ? "\n\nПокупайте наши товары!\n" : ""
-        );
+    public  String getText() {
+        return "\"%s: %s\n%s,%s.\n%s%s\n%s\n\"";
     }
 }

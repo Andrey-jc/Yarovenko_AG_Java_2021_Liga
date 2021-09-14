@@ -18,10 +18,6 @@ public class PhoneNotification implements Notification {
     }
 
     public String getText() {
-        return String.format(
-                "Phone #%s\n%s",
-                user.getPhone(),
-                body
-        );
+        return "%s #%s\n%s";
     }
 }
