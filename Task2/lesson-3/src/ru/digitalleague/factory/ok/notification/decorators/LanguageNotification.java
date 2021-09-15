@@ -4,7 +4,7 @@ public enum LanguageNotification {
     ENGLISH(
             "Address",
             "Dear",
-            "Viele Grüße, Support-Team!",
+            "With respect, Support-Team!",
             "Good day!",
             "Kaufen Sie unsere Produkte!",
             "Phone"
