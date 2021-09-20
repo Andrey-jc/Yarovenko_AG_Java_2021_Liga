@@ -1,5 +1,6 @@
 package ru.philosophyit.internship.javabase.time;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CalendarBuilder {
@@ -16,23 +17,6 @@ public class CalendarBuilder {
         // first day month
         int currentDay = LocalDateTime.now().getDayOfMonth();
         presentDay = LocalDateTime.now().minusDays(currentDay - 1);
-    }
-
-    public void getMonth() {
-        switch (CURRENT_MONTH) {
-            case 1 -> System.out.println(Month.JANUARY.getTitle());
-            case 2 -> System.out.println(Month.FEBRUARY.getTitle());
-            case 3 -> System.out.println(Month.MARCH.getTitle());
-            case 4 -> System.out.println(Month.APRIL.getTitle());
-            case 5 -> System.out.println(Month.MAY.getTitle());
-            case 6 -> System.out.println(Month.JUNE.getTitle());
-            case 7 -> System.out.println(Month.JULY.getTitle());
-            case 8 -> System.out.println(Month.AUGUST.getTitle());
-            case 9 -> System.out.println(Month.SEPTEMBER.getTitle());
-            case 10 -> System.out.println(Month.OCTOBER.getTitle());
-            case 11 -> System.out.println(Month.NOVEMBER.getTitle());
-            case 12 -> System.out.println(Month.DECEMBER.getTitle());
-        }
     }
 
     // начало след месяца при необходимости
@@ -61,11 +45,14 @@ public class CalendarBuilder {
     public void displayDaysCurrentMonth() {
         while (CURRENT_MONTH == presentDay.getMonth().getValue()) {
             int week = presentDay.getDayOfWeek().getValue();
+            String formatText;
             if (presentDay.getDayOfMonth() < 10) {
-                System.out.print(" " + presentDay.getDayOfMonth() + " ");
+                formatText = " %s ";
             } else {
-                System.out.print(presentDay.getDayOfMonth() + " ");
+                formatText = "%s ";
             }
+            System.out.printf(formatText, presentDay.getDayOfMonth());
+
             if (week == 7) {
                 System.out.println();
             }
@@ -75,7 +62,7 @@ public class CalendarBuilder {
 
     public void run() {
 
-        getMonth();
+        System.out.println(Month.valueOf(LocalDate.now().getMonth().name()).getTitle());
 
         System.out.println(DAY_WEEK);
 
