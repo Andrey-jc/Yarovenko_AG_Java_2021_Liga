@@ -29,11 +29,11 @@ public class Counter {
 
     static CompletableFuture<Void> runCounting(ExecutorService executorService) {
         return CompletableFuture.runAsync(() -> {
-            synchronized (local) {
                 for (int i = 0; i < 1000000; i++) {
+            synchronized (Counter.local) {
                     Counter.counter = Counter.counter + 1;
-                }
             }
+                }
         }, executorService);
     }
 }
