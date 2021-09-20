@@ -6,10 +6,11 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String ...args) throws IOException {
-        System.out.println(Files.readString(Path.of("/home/stuffing/Documents/Yarovenko_AG_Java_2021_Liga/javabase/src/main/resources/hello.txt")));
+        System.out.println(Files.readString(Path.of("src/main/resources/hello.txt")));
 
 
-        String dirPath = "/home/stuffing/Documents/Yarovenko_AG_Java_2021_Liga/javabase/src";
+//        String dirPath = "/home/stuffing/Documents/Yarovenko_AG_Java_2021_Liga/javabase/src";
+        String dirPath = "src";
 
         FileScanner fileScanner = new FileScanner();
         fileScanner.run(dirPath);
