@@ -18,7 +18,7 @@ public class Main {
 
         int num = getThreadsCount();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(8);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
         for (int i = 0; i < num; i++) {
             int captureId = i;
             executorService.submit(() -> {
