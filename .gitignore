@@ -1,0 +1,20 @@
+.git/
+gradle.properties
+gradlew
+gradlew.bat
+settings.gradle
+
+# Java class files
+*.class
+
+.idea/
+out/
+
+# generated files
+bin/
+gen/
+
+# Ignore gradle files
+.gradle/
+gradle/
+build/
