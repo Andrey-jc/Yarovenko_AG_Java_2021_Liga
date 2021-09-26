@@ -6,10 +6,9 @@ import notification.Notification;
 import java.util.HashMap;
 
 public abstract class ShoppingBasketAction extends Notification {
-
     private HashMap<String, Integer> mapOrders = new HashMap<>();
-    private boolean ordered = false;
 
+    private boolean ordered = false;
 
     public HashMap<String, Integer> getMapOrders() {
         return mapOrders;
@@ -45,7 +44,6 @@ public abstract class ShoppingBasketAction extends Notification {
         }
     }
 
-
     public void changeProductBasket(ProductShelf product, int number) {
         if (!ordered) {
             product.addProducts(product, mapOrders.get(product.getNameProduct()));
@@ -68,7 +66,5 @@ public abstract class ShoppingBasketAction extends Notification {
         } else {
             System.out.println(notificationErrorChange());
         }
-
-
     }
 }

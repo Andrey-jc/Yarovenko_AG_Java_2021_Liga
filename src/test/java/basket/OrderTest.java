@@ -8,9 +8,10 @@ import org.junit.jupiter.api.Test;
 import products.Food;
 
 class OrderTest {
-
     private static UserBasket basket;
+
     private static User user;
+
     private static basket.Order order;
 
     @BeforeAll
@@ -19,7 +20,6 @@ class OrderTest {
         basket = new UserBasket(user);
         order = new Order(basket);
     }
-
 
     @Test
     void checkOrder() {
@@ -35,5 +35,4 @@ class OrderTest {
         boolean ordered = basket.isOrdered();
         Assertions.assertTrue(ordered);
     }
-
 }

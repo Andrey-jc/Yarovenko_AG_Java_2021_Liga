@@ -12,20 +12,20 @@ import products.Food;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NotificationTest {
-
     private static UserBasket basket;
 
     private static User user;
-    private static Order order;
-    private static Food apple;
-    private static Food orange;
 
+    private static Order order;
+
+    private static Food apple;
+
+    private static Food orange;
 
     @BeforeAll
     static void setUp() {
         user = new User(1L, "Andrey");
         basket = new UserBasket(user);
-//        TODO: Сделать нотификейшены через мокито и юнит тесты!!!!!!!!!!!!!!!!!!!!
         order = new Order(basket);
         apple = new Food("Apple", 10000);
         orange = new Food("Orange", 15);
@@ -35,7 +35,6 @@ public class NotificationTest {
     public void notificationErrorChange() {
         String notificationErrorChange = Notification.notificationErrorChange();
         Assertions.assertEquals("Невозможно изменять корзину после оформления заказа", notificationErrorChange);
-
     }
 
     @Test

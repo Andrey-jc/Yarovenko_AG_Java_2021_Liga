@@ -4,7 +4,6 @@ import java.io.*;
 
 public class MainTest {
 
-
     @Test
     public void testMain() throws FileNotFoundException {
         String[] args = null;

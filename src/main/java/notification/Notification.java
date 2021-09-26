@@ -3,8 +3,6 @@ package notification;
 import products.ProductShelf;
 
 public abstract class Notification {
-
-
     public static String notificationErrorChange() {
         return "Невозможно изменять корзину после оформления заказа";
     }
@@ -22,7 +20,6 @@ public abstract class Notification {
     }
 
     public static String selectProduct() {
-        return "Корзина путса, перед оформлением заказа выберите товары";
+        return "Корзина пуста, перед оформлением заказа выберите товары";
     }
-
 }

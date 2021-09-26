@@ -8,7 +8,6 @@ import java.util.Map;
 public class UserBasket extends ShoppingBasketAction implements ViewBasket {
     private final User user;
 
-
     public UserBasket(User user) {
         this.user = user;
     }
@@ -18,10 +17,11 @@ public class UserBasket extends ShoppingBasketAction implements ViewBasket {
         return super.isOrdered();
     }
 
+    @Override
     public String checkBasket() {
         for (Map.Entry<String, Integer> entry : getMapOrders().entrySet()) {
             System.out.println("Товар: " + entry.getKey() + ", Колличество: " + entry.getValue());
         }
-        return user.getName() +  " добавьте товар или перейдите к оформлению заказа\n";
+        return user.getName() + " добавьте товар или перейдите к оформлению заказа\n";
     }
 }

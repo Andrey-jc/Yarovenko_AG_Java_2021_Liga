@@ -2,6 +2,7 @@ package bases;
 
 public class User {
     private String name;
+
     private Long id;
 
     public User(Long id, String name) {
