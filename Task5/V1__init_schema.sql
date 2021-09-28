@@ -1,6 +1,6 @@
 create table teacher(
                         id integer primary key,
-                        lastname varchar(255),
+                        patronymic varchar(255),
                         firstname varchar(255),
                         surname varchar(255),
                         age integer not null,
@@ -11,7 +11,7 @@ create table teacher(
 
 create table student(
                         id integer  primary key,
-                        lastname varchar(255),
+                        patronymic varchar(255),
                         firstname varchar(255),
                         surname varchar(255),
                         age integer  not null,
