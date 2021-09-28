@@ -49,8 +49,8 @@ create table TEACHER_AND_LESSON
     foreign key (lesson_id) references LESSON (id)
 );
 
-alter table teacher
+alter table TEACHER
     add foreign key (school_id) references SCHOOL (id);
 
-alter table student
+alter table STUDENT
     add foreign key (school_id) references SCHOOL (id);
