@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: social
+      POSTGRES_USER: stuff
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - .:/var/lib/postgresql/public/data
+    ports:
+      - "5432:5432"

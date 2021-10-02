@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS USER_SOCIAL_NETWORK
+(
+    id        INTEGER PRIMARY KEY,
+    first_name VARCHAR(20) NOT NULL,
+    last_name  VARCHAR(20) NOT NULL,
+    age INTEGER NOT NULL,
+    gender VARCHAR(20),
+    email VARCHAR(35),
+    school_id INTEGER DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS SCHOOL
+(
+    id   INTEGER PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+
+
+
