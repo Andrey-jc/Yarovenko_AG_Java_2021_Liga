@@ -35,18 +35,20 @@ create table LESSON
 
 create table STUDENT_AND_LESSON
 (
-    student_id integer,
-    lesson_id  integer NOT NULL UNIQUE,
+    student_id integer NOT NULL,
+    lesson_id  integer NOT NULL,
     foreign key (lesson_id) references LESSON (id),
-    foreign key (student_id) references STUDENT (id)
+    foreign key (student_id) references STUDENT (id),
+    primary key (student_id, lesson_id)
 );
 
 create table TEACHER_AND_LESSON
 (
-    teacher_id integer,
-    lesson_id  integer NOT NULL UNIQUE,
+    teacher_id integer NOT NULL,
+    lesson_id  integer NOT NULL,
     foreign key (teacher_id) references TEACHER (id),
-    foreign key (lesson_id) references LESSON (id)
+    foreign key (lesson_id) references LESSON (id),
+    primary key (teacher_id, lesson_id)
 );
 
 alter table TEACHER
