@@ -1,3 +1,0 @@
-DELETE
-FROM SCHOOL
-WHERE id = 7;
