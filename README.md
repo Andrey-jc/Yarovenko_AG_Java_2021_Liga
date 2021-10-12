@@ -2,58 +2,71 @@
  
 [![Docker](https://d1.awsstatic.com/acs/characters/Logos/Docker-Logo_Horizontel_279x131.b8a5c41e56b77706656d61080f6a0217a3ba356d.png)](https://www.docker.com/)
 
-### _Console command for run container postgreSQL 13.3 version_ 
+ _Console command for run container postgreSQL 13.3 version_ 
 
 ~~~shell
 docker run --name=psql-home-work-v13.3 -p 5432:5432 -e POSTGRES_USER=stuff -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=school -d postgres:13.3
 ~~~
 
-or  run docker-compose.yml
+_or  run docker-compose.yml_
 
 ## _Rest Api Social Network_
 
 ## Users
 Get: /api/users/{id}  
-- PathVariable id - user. Show current user social network  
+PathVariable id - user. Show current user social network  
+
 Get: /api/users  
-- show all users social network  
+Show all users social network  
+
 Post: /api/users  
-- RequestBody user. Add new user  
+RequestBody user. Add new user  
+
 Put: /api/users  
-- RequestBody user. update user  
+RequestBody user. update user  
+
 Delete: /api//users/{id}  
--P athVariable user id. Delete current user  
+PathVariable user id. Delete current user  
+
 Get: /api/users-post/{id}  
-- PathVariable user id. Show all posts current user  
+PathVariable user id. Show all posts current user  
 
 ## School
 Get: /api/schools/{id}  
-- PathVariable id - school. Show current schools  
+PathVariable id - school. Show current schools  
+
 Get: /api/schools  
-- show all schools social network  
+show all schools social network  
+
 Post: /api/schools  
-- RequestBody school. Add new school  
+RequestBody school. Add new school  
+
 Put: /api/schools  
-- RequestBody school. Update school  
+RequestBody school. Update school  
+
 Delete: /api/schools/{id}  
-- PathVariable id - school. Delete current school  
+PathVariable id - school. Delete current school  
 
 ## Post
 Get: /api/posts/{id}  
-- PathVariable id - post. Show current post  
+PathVariable id - post. Show current post  
+
 Get: /api/posts  
-- show all posts social network  
+show all posts social network  
+
 Post: /api/posts  
-- RequestParam id - user id, RequestParam content - text. Add user post, return json post  
+RequestParam id - user id, RequestParam content - text. Add user post, return json post  
+
 Put: /api/posts  
-- RequestParam id - user id, RequestParam content - text. Update user post, return json post  
+RequestParam id - user id, RequestParam content - text. Update user post, return json post  
+
 Delete: /api/posts/{id}  
-- PathVariable id - id post. Delete current post  
+PathVariable id - id post. Delete current post  
 
 ## Friends
 Get: /api/friends/{id}  
-- PathVariable id - user id. Show current user friends  
+PathVariable id - user id. Show current user friends  
 Post: /api/add  
-- RequestParam idUser - user id, RequestParam idFriend - user id. Add friend for user  
+RequestParam idUser - user id, RequestParam idFriend - user id. Add friend for user  
 Delete: /api/delete  
-- RequestParam idUser - user id, RequestParam idFriend - user id. Delete user from friend
+RequestParam idUser - user id, RequestParam idFriend - user id. Delete user from friend
