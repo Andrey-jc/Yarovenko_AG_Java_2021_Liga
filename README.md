@@ -13,28 +13,47 @@ or  run docker-compose.yml
 ## _Rest Api Social Network_
 
 ## Users
-Get: /api/users/{id}  - PathVariable id - user. Show current user social network  
-Get: /api/users - show all users social network  
-Post: /api/users - RequestBody user. Add new user  
-Put: /api/users - RequestBody user. update user  
-Delete: /api//users/{id} -P athVariable user id. Delete current user  
-Get: /api/users-post/{id} - PathVariable user id. Show all posts current user  
+Get: /api/users/{id}  
+- PathVariable id - user. Show current user social network  
+Get: /api/users  
+- show all users social network  
+Post: /api/users  
+- RequestBody user. Add new user  
+Put: /api/users  
+- RequestBody user. update user  
+Delete: /api//users/{id}  
+-P athVariable user id. Delete current user  
+Get: /api/users-post/{id}  
+- PathVariable user id. Show all posts current user  
 
 ## School
-Get: /api/schools/{id} - PathVariable id - school. Show current schools  
-Get: /api/schools - show all schools social network  
-Post: /api/schools - RequestBody school. Add new school  
-Put: /api/schools - RequestBody school. Update school  
-Delete: /api/schools/{id} - PathVariable id - school. Delete current school  
+Get: /api/schools/{id}  
+- PathVariable id - school. Show current schools  
+Get: /api/schools  
+- show all schools social network  
+Post: /api/schools  
+- RequestBody school. Add new school  
+Put: /api/schools  
+- RequestBody school. Update school  
+Delete: /api/schools/{id}  
+- PathVariable id - school. Delete current school  
 
 ## Post
-Get: /api/posts/{id} - PathVariable id - post. Show current post  
-Get: /api/posts - show all posts social network  
-Post: /api/posts - RequestParam id - user id, RequestParam content - text. Add user post, return json post  
-Put: /api/posts - RequestParam id - user id, RequestParam content - text. Update user post, return json post  
-Delete: /api/posts/{id} - PathVariable id - id post. Delete current post  
+Get: /api/posts/{id}  
+- PathVariable id - post. Show current post  
+Get: /api/posts  
+- show all posts social network  
+Post: /api/posts  
+- RequestParam id - user id, RequestParam content - text. Add user post, return json post  
+Put: /api/posts  
+- RequestParam id - user id, RequestParam content - text. Update user post, return json post  
+Delete: /api/posts/{id}  
+- PathVariable id - id post. Delete current post  
 
 ## Friends
-Get: /api/friends/{id} - PathVariable id - user id. Show current user friends  
-Post: /api/add - RequestParam idUser - user id, RequestParam idFriend - user id. Add friend for user  
-Delete: /api/delete - RequestParam idUser - user id, RequestParam idFriend - user id. Delete user from friend
+Get: /api/friends/{id}  
+- PathVariable id - user id. Show current user friends  
+Post: /api/add  
+- RequestParam idUser - user id, RequestParam idFriend - user id. Add friend for user  
+Delete: /api/delete  
+- RequestParam idUser - user id, RequestParam idFriend - user id. Delete user from friend
