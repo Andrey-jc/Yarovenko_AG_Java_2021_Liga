@@ -47,7 +47,7 @@ RequestBody school. Update school
 Delete: /api/schools/{id}  
 PathVariable id - school. Delete current school  
 
-## Post
+## Posts user
 Get: /api/posts/{id}  
 PathVariable id - post. Show current post  
 
