@@ -37,7 +37,7 @@ public class FriendsController {
         return "User with ID = " + idUser + " and user with ID = " + idFriend + " friends now";
     }
 
-    @PutMapping("/friends/delete")
+    @DeleteMapping("/friends/delete")
     public String deleteFriend(@RequestParam("idUser") int idUser, @RequestParam("idFriend") int idFriend) {
         friendsService.deleteUserFriend(idUser, idFriend);
         return "User with ID = " + idUser + " and user with ID = " + idFriend + " not friends anymore";

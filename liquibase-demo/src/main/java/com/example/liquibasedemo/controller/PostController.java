@@ -29,7 +29,7 @@ public class PostController {
     public PostUserDTO getPost(@PathVariable("id") int id) {
         PostUserDTO postUserDTO = postService.getPostDTO(id);
         if (postUserDTO == null) {
-            throw new NoSuchExceptionSocialNetwork("There is no school with ID = " +
+            throw new NoSuchExceptionSocialNetwork("There is no post with ID = " +
                     id + " in Database");
         }
         return postUserDTO;
