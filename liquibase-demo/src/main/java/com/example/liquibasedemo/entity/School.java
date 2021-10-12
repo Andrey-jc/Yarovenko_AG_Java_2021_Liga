@@ -10,7 +10,7 @@ public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name", length = 25, unique = true)
@@ -27,37 +27,16 @@ public class School {
     public School(String name) {
         this.name = name;
     }
-    
-    @PreRemove
-    private void preRemove() {
-        for (User user:
-             userList) {
-            user.setSchool(null);
-        }
-    }
-
-    /**
-     * ПОзволяет каскадом добавлять в список пользователя
-     * и школу для пользователя
-     *
-     * @param user школа пользователя
-     */
-    public void addUserToSchool(User user) {
-        if (userList == null) {
-            userList = new ArrayList<>();
-        }
-        userList.add(user);
-        if (user.getSchool() == null) {
-            user.setSchool(this);
-        }
-    }
 
     public List<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserList(User user) {
+        if (this.getUserList() == null) {
+            this.userList = new ArrayList<>();
+        }
+        this.getUserList().add(user);
     }
 
     public int getId() {

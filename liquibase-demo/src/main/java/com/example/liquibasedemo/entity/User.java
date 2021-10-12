@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id", unique = true)
+    @Column(name = "id", unique = true)
     private int id;
 
     @Column(name = "first_name", length = 20)
@@ -37,9 +37,9 @@ public class User {
     private List<PostUser> postUserList;
 
     @ManyToMany
-    @JoinTable(name="FRIENDS_USER",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="friend_id")
+    @JoinTable(name = "FRIENDS_USER",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<User> friends;
 
@@ -54,27 +54,28 @@ public class User {
         this.email = email;
     }
 
-    /**
-     * Метод для добавления пользователя в друзья
-     * @param user пользователь
-     */
-    public void addFriendUser(User user) {
-        if (friends == null) {
-            friends = new ArrayList<>();
+    public String getStringPosts() {
+        StringBuilder builder = new StringBuilder();
+        for (PostUser post : this.getPostUserList()) {
+            builder.append(post.toString()).append("\n");
         }
-        friends.add(user);
+        return builder.toString();
     }
 
     /**
-     * Метод для добавления постов пользователя
-     * @param postUser пост пользователя
+     * Метод для добавления пользователя в друзья
+     *
+     * @param user пользователь
      */
-    public void addPostToUser(PostUser postUser) {
-        if (postUserList == null) {
-            postUserList = new ArrayList<>();
+    public void addFriendUser(User user) {
+        if (this.getFriends() == null) {
+            this.setFriends(new ArrayList<>());
         }
-        postUserList.add(postUser);
-        postUser.setUserId(this);
+        this.getFriends().add(user);
+    }
+
+    public void deleteFriend(User user) {
+        this.getFriends().remove(user);
     }
 
     public List<PostUser> getPostUserList() {

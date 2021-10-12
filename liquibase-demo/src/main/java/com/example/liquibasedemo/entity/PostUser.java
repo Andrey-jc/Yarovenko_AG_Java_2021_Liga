@@ -18,13 +18,14 @@ public class PostUser {
     private User userId;
 
     @Column(name = "text", length = 2000)
-    private String context;
+    private String content;
 
     public PostUser() {
     }
 
-    public PostUser(String context) {
-        this.context = context;
+    public PostUser(User userId, String content) {
+        this.userId = userId;
+        this.content = content;
     }
 
     /**
@@ -56,11 +57,18 @@ public class PostUser {
         this.userId = userId;
     }
 
-    public String getContext() {
-        return context;
+    public String getContent() {
+        return content;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setContent(String context) {
+        this.content = context;
+    }
+
+    @Override
+    public String toString() {
+        return "PostUser{" +
+                "content='" + content + '\'' +
+                '}';
     }
 }
