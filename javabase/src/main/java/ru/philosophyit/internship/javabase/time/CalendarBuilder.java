@@ -37,10 +37,12 @@ public class CalendarBuilder {
 
     // начало след месяца при необходимости
     public void nextMonthDays() {
-        int restDayWeek =presentDay.getDayOfWeek().getValue() - 1;
-        for (int i = 0; restDayWeek < 7; i++) {
-            System.out.print(" " + presentDay.plusDays(i).getDayOfMonth() + " ");
-            restDayWeek++;
+        if ((presentDay.getDayOfWeek().getValue()) != 1 ) {
+            int restDayWeek =presentDay.getDayOfWeek().getValue() - 1;
+            for (int i = 0; restDayWeek < 7; i++) {
+                System.out.print(" " + presentDay.plusDays(i).getDayOfMonth() + " ");
+                restDayWeek++;
+            }
         }
     }
 
