@@ -9,5 +9,5 @@ public interface FriendsService {
 
     void deleteUserFriend(int idUser, int idFriend);
 
-    FriendDTO buildFriendList(User user);
+    FriendDTO buildFriendList(int id);
 }

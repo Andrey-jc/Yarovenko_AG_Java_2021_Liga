@@ -10,8 +10,17 @@ public class FriendDTO {
 
     private List<User> userList;
 
-    public FriendDTO() {
+    public String getUser() {
+        return user.getFirstName() + " " + user.getLastName();
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    //
+//    public List<User> getUserList() {
+//        return userList;
+//    }
 
     public String getUserList() {
         List<User> friendsList = user.getFriends();
@@ -20,17 +29,10 @@ public class FriendDTO {
             builder.append(user.toString()).append("\n");
         }
         return builder.toString();
-    }
+}
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 
-    public String getUser() {
-        return user.getFirstName() + user.getLastName();
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

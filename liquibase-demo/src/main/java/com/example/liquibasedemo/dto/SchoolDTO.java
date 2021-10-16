@@ -1,7 +1,5 @@
 package com.example.liquibasedemo.dto;
 
-import com.example.liquibasedemo.entity.User;
-
 import java.util.List;
 
 public class SchoolDTO {
@@ -10,20 +8,16 @@ public class SchoolDTO {
 
     private String name;
 
-    private List<User> userList;
+    private List<UserForSchoolDTO> userList;
 
     public SchoolDTO() {
     }
 
-    public String getUserList() {
-        StringBuilder builder = new StringBuilder();
-        for (User user : userList) {
-            builder.append(user.toString()).append("\n");
-        }
-        return builder.toString();
+    public List<UserForSchoolDTO> getUserList() {
+        return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(List<UserForSchoolDTO> userList) {
         this.userList = userList;
     }
 

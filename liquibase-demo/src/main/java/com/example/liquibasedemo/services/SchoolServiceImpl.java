@@ -1,9 +1,9 @@
 package com.example.liquibasedemo.services;
 
-import com.example.liquibasedemo.entity.User;
-import com.example.liquibasedemo.repository.SchoolRepository;
 import com.example.liquibasedemo.dto.SchoolDTO;
 import com.example.liquibasedemo.entity.School;
+import com.example.liquibasedemo.entity.User;
+import com.example.liquibasedemo.repository.SchoolRepository;
 import com.example.liquibasedemo.services.interfaces.SchoolService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,14 @@ import java.util.Optional;
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
-    private SchoolRepository schoolRepository;
+    private final SchoolRepository schoolRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public SchoolServiceImpl(SchoolRepository schoolRepository) {
+    public SchoolServiceImpl(SchoolRepository schoolRepository, ModelMapper modelMapper) {
         this.schoolRepository = schoolRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override

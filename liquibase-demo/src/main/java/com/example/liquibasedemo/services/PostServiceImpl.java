@@ -4,6 +4,7 @@ import com.example.liquibasedemo.repository.PostRepository;
 import com.example.liquibasedemo.dto.PostUserDTO;
 import com.example.liquibasedemo.entity.PostUser;
 import com.example.liquibasedemo.services.interfaces.PostService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,13 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
 
-    @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+    private final ModelMapper modelMapper;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    public PostServiceImpl(PostRepository postRepository, ModelMapper modelMapper) {
+        this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<PostUserDTO> getAllPost() {

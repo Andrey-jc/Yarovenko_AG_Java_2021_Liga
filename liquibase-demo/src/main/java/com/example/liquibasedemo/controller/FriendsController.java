@@ -5,6 +5,7 @@ import com.example.liquibasedemo.entity.User;
 import com.example.liquibasedemo.exceptions_handling.NoSuchExceptionSocialNetwork;
 import com.example.liquibasedemo.services.interfaces.FriendsService;
 import com.example.liquibasedemo.services.interfaces.UserService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,18 +24,13 @@ public class FriendsController {
 
     @GetMapping("/friends/{id}")
     public FriendDTO showFriendUser(@PathVariable("id") int id) {
-        User userCurrent = userService.getUser(id);
-        if (userCurrent == null) {
-            throw new NoSuchExceptionSocialNetwork("There is no user with ID = " +
-                    id + " in Database");
-        }
-        return friendsService.buildFriendList(userCurrent);
+        return friendsService.buildFriendList(id);
     }
 
-    @PostMapping("/friends/add")
-    public String addNewFriend(@RequestParam("idUser") int idUser, @RequestParam("idFriend") int idFriend) {
-        friendsService.saveUserFriend(idUser, idFriend);
-        return "User with ID = " + idUser + " and user with ID = " + idFriend + " friends now";
+    @PostMapping("/friends/add/{idUser}")
+    public String addNewFriend(@PathVariable("idUser") int idUser, @RequestBody ObjectNode idFriend ) {
+        friendsService.saveUserFriend(idUser, idFriend.get("idFriend").asInt());
+        return "User with ID = " + idUser + " and user with ID = " + idFriend.get("idFriend").asInt() + " friends now";
     }
 
     @DeleteMapping("/friends/delete")
