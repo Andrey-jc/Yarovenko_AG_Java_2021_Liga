@@ -67,6 +67,6 @@ PathVariable id - id post. Delete current post
 Get: /api/friends/{id}  
 PathVariable id - user id. Show current user friends  
 Post: /api/add  
-RequestParam idUser - user id, RequestParam idFriend - user id. Add friend for user  
+PathVariable idUser - user id, RequestBody idFriend - user id. Add friend for user  
 Delete: /api/delete  
 RequestParam idUser - user id, RequestParam idFriend - user id. Delete user from friend
