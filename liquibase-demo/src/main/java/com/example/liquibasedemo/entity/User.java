@@ -36,13 +36,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<PostUser> postUserList;
 
-//    @ManyToMany
-//    @JoinTable(name = "FRIENDS_USER",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "friend_id")
-//    )
     @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL)
     private List<Friend> friends;
+
+    @OneToMany(mappedBy = "userFor", cascade = CascadeType.ALL)
+    private List<Dialog> dialogs;
 
     public User() {
     }
