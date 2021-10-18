@@ -1,12 +1,15 @@
 package com.example.liquibasedemo.services.interfaces;
 
 import com.example.liquibasedemo.dto.FriendDTO;
+import com.example.liquibasedemo.dto.UserDTO;
+
+import java.util.List;
 
 public interface FriendsService {
 
-    void saveUserFriend(int idUser, int idFriend);
+    void saveUserFriend(int idUser, UserDTO userFriendId);
 
     void deleteUserFriend(int idUser, int idFriend);
 
-    FriendDTO buildFriendList(int id);
+    List<FriendDTO> buildFriendList(int id);
 }

@@ -1,51 +1,70 @@
 package com.example.liquibasedemo.services;
 
 import com.example.liquibasedemo.dto.FriendDTO;
+import com.example.liquibasedemo.dto.UserDTO;
+import com.example.liquibasedemo.dto.UserFullInfoDTO;
+import com.example.liquibasedemo.entity.Friend;
 import com.example.liquibasedemo.entity.User;
+import com.example.liquibasedemo.repository.FriendRepository;
 import com.example.liquibasedemo.repository.UserRepository;
 import com.example.liquibasedemo.services.interfaces.FriendsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
 public class FriendsServiceImpl implements FriendsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final FriendRepository friendRepository;
 
     private final ModelMapper modelMapper;
 
     @Autowired
-    public FriendsServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public FriendsServiceImpl(UserRepository userRepository, FriendRepository friendRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.friendRepository = friendRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public void saveUserFriend(int useId, int userFriendId) {
+    public void saveUserFriend(int useId, UserDTO userFriendId) {
         User user = userRepository.getById(useId);
-        User userFriend = userRepository.getById(userFriendId);
-        user.addFriendUser(userFriend);
-        userFriend.addFriendUser(user);
-        userRepository.save(user);
-        userRepository.save(userFriend);
+        User userFriend = userRepository.getById(userFriendId.getId());
+        Friend friendTo = new Friend();
+        friendTo.setUser(user);
+        friendTo.setFriend(userFriend);
+        friendRepository.save(friendTo);
+        Friend friendFrom = new Friend();
+        friendFrom.setUser(userFriend);
+        friendFrom.setFriend(user);
+        friendRepository.save(friendFrom);
     }
+
 
     @Override
     public void deleteUserFriend(int useId, int userFriendId) {
-        User user = userRepository.getById(useId);
-        User userFriend = userRepository.getById(userFriendId);
-        user.deleteFriend(userFriend);
-        userFriend.deleteFriend(user);
-        userRepository.save(user);
-        userRepository.save(userFriend);
+        Friend friendTo = friendRepository.findByFriendIdAndUserId(userFriendId, useId);
+        Friend friendFrom = friendRepository.findByFriendIdAndUserId(useId, userFriendId);
+        friendRepository.deleteById(friendTo.getId());
+        friendRepository.deleteById(friendFrom.getId());
     }
 
     @Transactional(readOnly = true)
-    public FriendDTO buildFriendList(int id) {
+    @Override
+    public List<FriendDTO> buildFriendList(int id) {
         User user = userRepository.getById(id);
-        return modelMapper.map(user, FriendDTO.class);
+        List<Friend> friends = user.getFriends();
+        List<FriendDTO> friendDTO = new ArrayList<>();
+        for (Friend friend: friends) {
+            friendDTO.add(new FriendDTO(friend));
+        }
+        return friendDTO;
     }
 }

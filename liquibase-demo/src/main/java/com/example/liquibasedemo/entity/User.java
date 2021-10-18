@@ -36,12 +36,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<PostUser> postUserList;
 
-    @ManyToMany
-    @JoinTable(name = "FRIENDS_USER",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id")
-    )
-    private List<User> friends;
+//    @ManyToMany
+//    @JoinTable(name = "FRIENDS_USER",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "friend_id")
+//    )
+    @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL)
+    private List<Friend> friends;
 
     public User() {
     }
@@ -61,32 +62,32 @@ public class User {
         }
         return builder.toString();
     }
-
-    /**
-     * Метод для добавления пользователя в друзья
-     *
-     * @param user пользователь
-     */
-    public void addFriendUser(User user) {
-        if (this.getFriends() == null) {
-            this.setFriends(new ArrayList<>());
-        }
-        this.getFriends().add(user);
-    }
-
-    public void deleteFriend(User user) {
-        this.getFriends().remove(user);
-    }
+//
+//    /**
+//     * Метод для добавления пользователя в друзья
+//     *
+//     * @param user пользователь
+//     */
+//    public void addFriendUser(User user) {
+//        if (this.getFriends() == null) {
+//            this.setFriends(new ArrayList<>());
+//        }
+//        this.getFriends().add(user);
+//    }
+//
+//    public void deleteFriend(User user) {
+//        this.getFriends().remove(user);
+//    }
 
     public List<PostUser> getPostUserList() {
         return postUserList;
     }
 
-    public List<User> getFriends() {
+    public List<Friend> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<User> friends) {
+    public void setFriends(List<Friend> friends) {
         this.friends = friends;
     }
 
