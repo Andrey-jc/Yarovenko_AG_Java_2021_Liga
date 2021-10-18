@@ -54,11 +54,10 @@ public class PostController {
     }
 
     @PutMapping("/posts")
-    public PostUser updatePost(@RequestParam("id") int id, @RequestParam("content") String content) {
+    public PostUserDTO updatePost(@RequestParam("id") int id, @RequestParam("content") String content) {
         PostUser post = postService.getPost(id);
         post.setContent(content);
-        postService.savePost(post);
-        return post;
+        return postService.getPostDTO(post.getId());
     }
 
     @DeleteMapping("/posts/{id}")

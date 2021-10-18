@@ -1,6 +1,7 @@
 package com.example.liquibasedemo.services;
 
 import com.example.liquibasedemo.dto.UserDTO;
+import com.example.liquibasedemo.dto.UserFullInfoDTO;
 import com.example.liquibasedemo.entity.User;
 import com.example.liquibasedemo.repository.UserRepository;
 import com.example.liquibasedemo.services.interfaces.UserService;
@@ -40,7 +41,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(User user) {
+    public void saveUser(UserFullInfoDTO userFullInfoDTO) {
+        User user = modelMapper.map(userFullInfoDTO, User.class);
         userRepository.save(user);
     }
 

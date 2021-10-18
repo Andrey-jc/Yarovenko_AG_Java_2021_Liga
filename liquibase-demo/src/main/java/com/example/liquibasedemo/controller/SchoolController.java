@@ -1,6 +1,7 @@
 package com.example.liquibasedemo.controller;
 
 import com.example.liquibasedemo.dto.SchoolDTO;
+import com.example.liquibasedemo.dto.SchoolFullInfoDTO;
 import com.example.liquibasedemo.entity.School;
 import com.example.liquibasedemo.exceptions_handling.NoSuchExceptionSocialNetwork;
 import com.example.liquibasedemo.services.interfaces.SchoolService;
@@ -40,23 +41,23 @@ public class SchoolController {
     }
 
     @PostMapping("/schools")
-    public School addNewSchool(@RequestBody School school) {
+    public SchoolDTO addNewSchool(@RequestBody SchoolFullInfoDTO school) {
         schoolService.saveSchool(school);
-        return school;
+        return schoolService.getSchoolDTO(school.getId());
     }
 
     @PutMapping("/schools")
-    public School updateSchool(@RequestBody School school) {
+    public SchoolDTO updateSchool(@RequestBody SchoolFullInfoDTO school) {
         schoolService.saveSchool(school);
-        return school;
+        return schoolService.getSchoolDTO(school.getId());
     }
 
     @PutMapping("/schools/adduser")
-    public SchoolDTO addUserToSchool(@RequestParam("idSchool") int idSchool, @RequestParam("idUser") int idUser) {
-        School school = schoolService.getSchool(idSchool);
+    public SchoolDTO addUserToSchool(@RequestBody SchoolFullInfoDTO schoolFullInfoDTO, @RequestParam("idUser") int idUser) {
+        School school = schoolService.getSchool(schoolFullInfoDTO.getId());
         school.setUserList(userService.getUser(idUser));
-        schoolService.saveSchool(school);
-        return schoolService.getSchoolDTO(idSchool);
+        schoolService.saveSchool(schoolFullInfoDTO);
+        return schoolService.getSchoolDTO(schoolFullInfoDTO.getId());
     }
 
     @DeleteMapping("/schools/{id}")
