@@ -1,6 +1,7 @@
 package com.example.liquibasedemo.services;
 
 import com.example.liquibasedemo.dto.SchoolDTO;
+import com.example.liquibasedemo.dto.SchoolFullInfoDTO;
 import com.example.liquibasedemo.entity.School;
 import com.example.liquibasedemo.entity.User;
 import com.example.liquibasedemo.repository.SchoolRepository;
@@ -42,7 +43,8 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Transactional
     @Override
-    public void saveSchool(School school) {
+    public void saveSchool(SchoolFullInfoDTO schoolFullInfoDTO) {
+        School school = modelMapper.map(schoolFullInfoDTO, School.class);
         schoolRepository.save(school);
     }
 

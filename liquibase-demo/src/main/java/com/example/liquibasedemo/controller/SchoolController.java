@@ -1,6 +1,7 @@
 package com.example.liquibasedemo.controller;
 
 import com.example.liquibasedemo.dto.SchoolDTO;
+import com.example.liquibasedemo.dto.SchoolFullInfoDTO;
 import com.example.liquibasedemo.entity.School;
 import com.example.liquibasedemo.exceptions_handling.NoSuchExceptionSocialNetwork;
 import com.example.liquibasedemo.services.interfaces.SchoolService;
@@ -14,9 +15,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class SchoolController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private SchoolService schoolService;
+    private final SchoolService schoolService;
 
     @Autowired
     public SchoolController(UserService userService, SchoolService schoolService) {
@@ -40,23 +41,23 @@ public class SchoolController {
     }
 
     @PostMapping("/schools")
-    public School addNewSchool(@RequestBody School school) {
+    public SchoolDTO addNewSchool(@RequestBody SchoolFullInfoDTO school) {
         schoolService.saveSchool(school);
-        return school;
+        return schoolService.getSchoolDTO(school.getId());
     }
 
     @PutMapping("/schools")
-    public School updateSchool(@RequestBody School school) {
+    public SchoolDTO updateSchool(@RequestBody SchoolFullInfoDTO school) {
         schoolService.saveSchool(school);
-        return school;
+        return schoolService.getSchoolDTO(school.getId());
     }
 
     @PutMapping("/schools/adduser")
-    public SchoolDTO addUserToSchool(@RequestParam("idSchool") int idSchool, @RequestParam("idUser") int idUser) {
-        School school = schoolService.getSchool(idSchool);
-        school.setUserList(userService.getUser(idUser));
+    public SchoolDTO addUserToSchool(@RequestBody SchoolFullInfoDTO school, @RequestParam("idUser") int idUser) {
+        School schoolForUser = schoolService.getSchool(school.getId());
+        schoolForUser.setUserList(userService.getUser(idUser));
         schoolService.saveSchool(school);
-        return schoolService.getSchoolDTO(idSchool);
+        return schoolService.getSchoolDTO(school.getId());
     }
 
     @DeleteMapping("/schools/{id}")

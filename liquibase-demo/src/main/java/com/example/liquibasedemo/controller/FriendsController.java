@@ -1,8 +1,6 @@
 package com.example.liquibasedemo.controller;
 
 import com.example.liquibasedemo.dto.FriendDTO;
-import com.example.liquibasedemo.entity.User;
-import com.example.liquibasedemo.exceptions_handling.NoSuchExceptionSocialNetwork;
 import com.example.liquibasedemo.services.interfaces.FriendsService;
 import com.example.liquibasedemo.services.interfaces.UserService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -13,13 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class FriendsController {
 
-    private FriendsService friendsService;
-    private UserService userService;
+    private final FriendsService friendsService;
 
     @Autowired
     public FriendsController(FriendsService friendsService, UserService userService) {
         this.friendsService = friendsService;
-        this.userService = userService;
     }
 
     @GetMapping("/friends/{id}")

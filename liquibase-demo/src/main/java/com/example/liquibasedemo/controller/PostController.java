@@ -16,8 +16,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class PostController {
 
-    private PostService postService;
-    private UserService userService;
+    private final PostService postService;
+    private final UserService userService;
 
     @Autowired
     public PostController(PostService postService, UserService userService, FriendsService friendsService) {
@@ -54,11 +54,11 @@ public class PostController {
     }
 
     @PutMapping("/posts")
-    public PostUser updatePost(@RequestParam("id") int id, @RequestParam("content") String content) {
+    public PostUserDTO updatePost(@RequestParam("id") int id, @RequestParam("content") String content) {
         PostUser post = postService.getPost(id);
         post.setContent(content);
         postService.savePost(post);
-        return post;
+        return postService.getPostDTO(post.getId());
     }
 
     @DeleteMapping("/posts/{id}")

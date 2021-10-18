@@ -4,7 +4,6 @@ import com.example.liquibasedemo.dto.FriendDTO;
 import com.example.liquibasedemo.entity.User;
 import com.example.liquibasedemo.repository.UserRepository;
 import com.example.liquibasedemo.services.interfaces.FriendsService;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

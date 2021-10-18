@@ -1,10 +1,9 @@
 package com.example.liquibasedemo.services;
 
-import com.example.liquibasedemo.repository.PostRepository;
 import com.example.liquibasedemo.dto.PostUserDTO;
 import com.example.liquibasedemo.entity.PostUser;
+import com.example.liquibasedemo.repository.PostRepository;
 import com.example.liquibasedemo.services.interfaces.PostService;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

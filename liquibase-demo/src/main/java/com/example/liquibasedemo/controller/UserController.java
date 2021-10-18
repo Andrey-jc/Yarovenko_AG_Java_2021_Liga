@@ -1,6 +1,7 @@
 package com.example.liquibasedemo.controller;
 
 import com.example.liquibasedemo.dto.UserDTO;
+import com.example.liquibasedemo.dto.UserFullInfoDTO;
 import com.example.liquibasedemo.entity.User;
 import com.example.liquibasedemo.exceptions_handling.NoSuchExceptionSocialNetwork;
 import com.example.liquibasedemo.services.interfaces.UserService;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -36,15 +37,15 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addNewUser(@RequestBody User user) {
+    public UserDTO addNewUser(@RequestBody UserFullInfoDTO user) {
         userService.saveUser(user);
-        return user;
+        return userService.getUserDTO(user.getId());
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public UserDTO updateUser(@RequestBody UserFullInfoDTO user) {
         userService.saveUser(user);
-        return user;
+        return userService.getUserDTO(user.getId());
     }
 
     @DeleteMapping("/users/{id}")
