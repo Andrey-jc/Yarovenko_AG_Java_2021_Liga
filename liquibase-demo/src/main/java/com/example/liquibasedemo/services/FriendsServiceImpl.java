@@ -34,17 +34,29 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public void saveUserFriend(int useId, UserDTO userFriendId) {
+    public String saveUserFriend(int useId, UserDTO userFriendId) {
         User user = userRepository.getById(useId);
         User userFriend = userRepository.getById(userFriendId.getId());
         Friend friendTo = new Friend();
         friendTo.setUser(user);
         friendTo.setFriend(userFriend);
+        for (Friend friend :
+                user.getFriends()) {
+            if (friend.getFriend().getId() == userFriend.getId()) {
+                return user.getLastName() + " " + user.getFirstName() + " и " +
+                        userFriend.getLastName() + " " + userFriend.getFirstName() + " уже друзья";
+            }
+        }
         friendRepository.save(friendTo);
+        user.getFriends().add(friendTo);
         Friend friendFrom = new Friend();
         friendFrom.setUser(userFriend);
         friendFrom.setFriend(user);
+        userFriend.getFriends().add(friendFrom);
         friendRepository.save(friendFrom);
+        userRepository.save(user);
+        userRepository.save(userFriend);
+        return "Ok";
     }
 
 

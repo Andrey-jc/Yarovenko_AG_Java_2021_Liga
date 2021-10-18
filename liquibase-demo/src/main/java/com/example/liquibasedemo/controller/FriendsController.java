@@ -27,8 +27,7 @@ public class FriendsController {
 
     @PostMapping("/friends/add/{idUser}")
     public String addNewFriend(@PathVariable("idUser") int idUser, @RequestBody UserDTO userDTO ) {
-        friendsService.saveUserFriend(idUser, userDTO);
-        return "User with ID = " + idUser + " and user with ID = " + userDTO.getId() + " friends now";
+        return friendsService.saveUserFriend(idUser, userDTO);
     }
 
     @DeleteMapping("/friends/delete")

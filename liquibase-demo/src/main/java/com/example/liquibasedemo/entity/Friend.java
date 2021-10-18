@@ -1,14 +1,9 @@
 package com.example.liquibasedemo.entity;
 
-import lombok.Data;
-import org.hibernate.annotations.Check;
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "FRIENDS_USER")
-@Data
 public class Friend {
 
     @Id

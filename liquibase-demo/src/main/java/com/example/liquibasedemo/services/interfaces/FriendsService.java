@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FriendsService {
 
-    void saveUserFriend(int idUser, UserDTO userFriendId);
+    String saveUserFriend(int idUser, UserDTO userFriendId);
 
     void deleteUserFriend(int idUser, int idFriend);
 
