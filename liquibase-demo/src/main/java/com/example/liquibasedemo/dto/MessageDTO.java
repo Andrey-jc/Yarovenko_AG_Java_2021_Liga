@@ -1,12 +1,20 @@
 package com.example.liquibasedemo.dto;
 
+import com.example.liquibasedemo.entity.Message;
+
 public class MessageDTO {
-//TODO : доделать меседжер
+
     private int id;
 
     private String name;
 
     private String context;
+
+    public MessageDTO(Message message) {
+        this.id = message.getId();
+        this.name = getName();
+        this.context = message.getContent();
+    }
 
     public int getId() {
         return id;

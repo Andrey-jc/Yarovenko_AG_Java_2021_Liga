@@ -19,12 +19,17 @@ public class Message {
     private User userFor;
 
     @ManyToOne
-    @JoinColumn(name = "user_to_id")
-    private User userTo;
-
-    @ManyToOne
     @JoinColumn(name = "dialog_id")
     private Dialog dialog;
+
+    public Message(String content, User userFor, Dialog dialog) {
+        this.content = content;
+        this.userFor = userFor;
+        this.dialog = dialog;
+    }
+
+    public Message() {
+    }
 
     public int getId() {
         return id;
@@ -48,14 +53,6 @@ public class Message {
 
     public void setUserFor(User userFor) {
         this.userFor = userFor;
-    }
-
-    public User getUserTo() {
-        return userTo;
-    }
-
-    public void setUserTo(User userTo) {
-        this.userTo = userTo;
     }
 
     public Dialog getDialog() {

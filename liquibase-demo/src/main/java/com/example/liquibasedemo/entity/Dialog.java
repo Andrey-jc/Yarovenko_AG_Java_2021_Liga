@@ -23,6 +23,12 @@ public class Dialog {
     @OneToMany(mappedBy = "dialog", cascade = CascadeType.ALL)
     private List<Message> message;
 
+    public Dialog(User userFor, User userTo, List<Message> message) {
+        this.userFor = userFor;
+        this.userTo = userTo;
+        this.message = message;
+    }
+
     public int getId() {
         return id;
     }
