@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE Reservation r SET r.status = :status WHERE r.id = :id")
-    void updateStatusById(@Param("id") Long id, @Param("status") String  status);
+    void updateStatusById(@Param("id") Long id, @Param("status") String status);
 
     @Modifying(clearAutomatically = true)
     @Query(value = "SELECT r FROM Reservation r WHERE r.date = :date")
@@ -30,4 +32,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Modifying(clearAutomatically = true)
     @Query(value = "SELECT r FROM Reservation r WHERE r.status = :status")
     List<ReservationForAcceptDTO> findAllByStatusNoAccept(@Param("status") String status);
+
+    @Query(nativeQuery = true, value = "SELECT r.id FROM Reservation r WHERE r.status = :status ORDER BY r.date, r.time" +
+            " LIMIT 1")
+    Long getFirstByStatusOrderByDateTime(@Param("status") String status);
 }

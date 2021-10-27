@@ -2,11 +2,16 @@ package com.example.electronicqueue.dto;
 
 import com.example.electronicqueue.entity.Reservation;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class ReservationDTO implements Comparable<ReservationDTO> {
 
     private Long id_reservation;

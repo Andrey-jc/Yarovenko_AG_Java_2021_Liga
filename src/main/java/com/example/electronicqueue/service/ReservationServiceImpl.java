@@ -112,74 +112,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     /**
-     * метод для проверки даты и время брони
-     *
-     * @param date дата брони
-     * @param time время брони
-     */
-    private void checkValidDate(LocalDate date, LocalTime time) {
-        boolean dayOfWeek = date.getDayOfWeek().getValue() < firstWeekendDay;
-        boolean hourJob = time.getHour() >= timeOpen && time.getHour() < timeClosed;
-        boolean today = date.getDayOfMonth() == (LocalDateTime.now().getDayOfMonth());
-        boolean currentMonth = date.getMonth() == (LocalDate.now().getMonth());
-        boolean notToday = date.getDayOfMonth() > (LocalDateTime.now().getDayOfMonth());
-        boolean timeHoursNowTru = time.getHour() == (LocalDateTime.now().getHour());
-        boolean timeHoursMore = time.getHour() > (LocalDateTime.now().getHour());
-        boolean minuteMore = time.getMinute() > (LocalDateTime.now().getMinute());
-        if (!(dayOfWeek && hourJob &&
-                (!currentMonth ||
-                        today && (timeHoursNowTru && minuteMore || timeHoursMore) || notToday))
-        ) {
-            throw new NoSuchExceptionElectronicQueue("You reservation date not working hours or incorrect date");
-        }
-    }
-
-    /**
-     * метод для проверки время брони
-     * занято ли оно или нет
-     *
-     * @param reservation текущая бронь
-     */
-    private void checkTimeReservation(Reservation reservation) {
-        List<Reservation> allReservation = reservationRepository.findAll();
-        for (Reservation r :
-                allReservation) {
-            boolean monthIsTrue = (r.getDate().getDayOfMonth()) == reservation.getDate().getDayOfMonth();
-            boolean timeIsTrue = (r.getTime().getHour()) == reservation.getTime().getHour();
-            boolean minuteIsTrue = r.getTime().getMinute() == reservation.getTime().getMinute();
-            if (monthIsTrue && (timeIsTrue && minuteIsTrue)) {
-                throw new NoSuchExceptionElectronicQueue("Time busy");
-            } else if (monthIsTrue && timeIsTrue && ((Math.abs((r.getTime().getMinute()) - (reservation.getTime().getMinute())) * 2) < 15)) {
-                throw new NoSuchExceptionElectronicQueue("Time busy");
-            }
-        }
-    }
-
-    /**
      * Посмотреть ближайшую активную бронь
      *
      * @return возвращает ближайшую бронь
      */
     @Override
     public ReservationDTO getActiveReservationFirst() {
-        List<Reservation> all = reservationRepository.findAll();
-        List<ReservationDTO> reservationDTO = new ArrayList<>();
-        all.forEach(reservation -> {
-            if (reservation.getStatus().equals(Status.ACCEPT.getName())
-                    && (reservation.getDate().getDayOfMonth() >= (LocalDateTime.now().getDayOfMonth()))
-                    || ((reservation.getTime().getHour() == (LocalDateTime.now().getHour()))
-                    && (reservation.getTime().getMinute() >= (LocalDateTime.now().getMinute())))
-                    &&
-                    ((reservation.getTime().getHour()) > (LocalDateTime.now().getHour()))
-            ) {
-                reservationDTO.add(new ReservationDTO(reservation));
-            }
-        });
-        if (reservationDTO.isEmpty()) {
-            return null;
+        Long id = reservationRepository.getFirstByStatusOrderByDateTime(Status.ACCEPT.getName());
+        if (id == null) {
+            throw new NoSuchExceptionElectronicQueue("No confirmed reservations");
         }
-        Collections.sort(reservationDTO);
-        return reservationDTO.get(0);
+        Reservation reservation = reservationRepository.getById(id);
+        return new ReservationDTO(reservation);
     }
 
     /**
@@ -203,7 +147,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO changeStatusReservationToArrived(ReservationCanceledOrChangeStatusForm form) {
         Optional<Reservation> optional = reservationRepository.findById(form.getId());
-        if (optional.isPresent() && form.getLogin().equals(optional.get().getUserApp().getLogin())) {
+        String login = form.getLogin();
+        if (optional.isPresent() && login.equals(optional.get().getUserApp().getLogin())) {
             reservationRepository.updateStatusById(form.getId(), Status.ARRIVED.getName());
         } else {
             throw new NoSuchExceptionElectronicQueue("Bad login or number reservation");
@@ -230,20 +175,15 @@ public class ReservationServiceImpl implements ReservationService {
      */
     @Override
     public ReservationDTO nextReservationArrived() {
-        List<Reservation> all = reservationRepository.findAll();
-        List<ReservationDTO> reservationDTO = new ArrayList<>();
-        all.forEach(reservation -> {
-            if (reservation.getStatus().equals(Status.ARRIVED.getName())
-                    && checkCurrentTime(reservation)) {
-
-                reservationDTO.add(new ReservationDTO(reservation));
-            }
-        });
-        if (reservationDTO.isEmpty()) {
-            return null;
+        Long idReservation = reservationRepository.getFirstByStatusOrderByDateTime(Status.ARRIVED.getName());
+        if (idReservation == null) {
+            throw new NoSuchExceptionElectronicQueue("No users who came");
+        }
+        Reservation reservation = reservationRepository.getById(idReservation);
+        if (checkCurrentTime(reservation)) {
+            return new ReservationDTO(reservation);
         } else {
-            Collections.sort(reservationDTO);
-            return reservationDTO.get(0);
+            return null;
         }
     }
 
@@ -254,22 +194,21 @@ public class ReservationServiceImpl implements ReservationService {
      */
     @Override
     public ReservationDTO nextReservationTimeOut() {
-        List<Reservation> all = reservationRepository.findAll();
-        List<ReservationDTO> reservationDTO = new ArrayList<>();
-        all.forEach(reservation -> {
-            if (reservation.getStatus().equals(Status.ACCEPT.getName())
-                    && checkCurrentTime(reservation)) {
-                reservationDTO.add(new ReservationDTO(reservation));
-            }
-        });
-        if (reservationDTO.isEmpty()) {
-            return null;
+        Long idReservation = reservationRepository.getFirstByStatusOrderByDateTime(Status.ACCEPT.getName());
+        Reservation reservation = reservationRepository.getById(idReservation);
+        if (checkCurrentTime(reservation)) {
+            return new ReservationDTO(reservation);
         } else {
-            Collections.sort(reservationDTO);
-            return reservationDTO.get(0);
+            return null;
         }
     }
 
+    /**
+     * метод для проверки времени брони с текущим временем
+     *
+     * @param reservation текущий резерв
+     * @return
+     */
     private boolean checkCurrentTime(Reservation reservation) {
         return (reservation.getDate().getDayOfMonth()) == (LocalDateTime.now().getDayOfMonth())
                 && (reservation.getTime().getHour() == (LocalDateTime.now().getHour()))
@@ -317,6 +256,50 @@ public class ReservationServiceImpl implements ReservationService {
                 reservationRepository.deleteById(reservationDate.getId());
             }
         });
+    }
+
+    /**
+     * метод для проверки даты и время брони
+     *
+     * @param date дата брони
+     * @param time время брони
+     */
+    private void checkValidDate(LocalDate date, LocalTime time) {
+        boolean dayOfWeek = date.getDayOfWeek().getValue() < firstWeekendDay;
+        boolean hourJob = time.getHour() >= timeOpen && time.getHour() < timeClosed;
+        boolean today = date.getDayOfMonth() == (LocalDateTime.now().getDayOfMonth());
+        boolean currentMonth = date.getMonth() == (LocalDate.now().getMonth());
+        boolean notToday = date.getDayOfMonth() > (LocalDateTime.now().getDayOfMonth());
+        boolean timeHoursNowTru = time.getHour() == (LocalDateTime.now().getHour());
+        boolean timeHoursMore = time.getHour() > (LocalDateTime.now().getHour());
+        boolean minuteMore = time.getMinute() > (LocalDateTime.now().getMinute());
+        if (!(dayOfWeek && hourJob &&
+                (!currentMonth ||
+                        today && (timeHoursNowTru && minuteMore || timeHoursMore) || notToday))
+        ) {
+            throw new NoSuchExceptionElectronicQueue("You reservation date not working hours or incorrect date");
+        }
+    }
+
+    /**
+     * метод для проверки время брони
+     * занято ли оно или нет
+     *
+     * @param reservation текущая бронь
+     */
+    private void checkTimeReservation(Reservation reservation) {
+        List<Reservation> allReservation = reservationRepository.findAll();
+        for (Reservation r :
+                allReservation) {
+            boolean monthIsTrue = (r.getDate().getDayOfMonth()) == reservation.getDate().getDayOfMonth();
+            boolean timeIsTrue = (r.getTime().getHour()) == reservation.getTime().getHour();
+            boolean minuteIsTrue = r.getTime().getMinute() == reservation.getTime().getMinute();
+            if (monthIsTrue && (timeIsTrue && minuteIsTrue)) {
+                throw new NoSuchExceptionElectronicQueue("Time busy");
+            } else if (monthIsTrue && timeIsTrue && ((Math.abs((r.getTime().getMinute()) - (reservation.getTime().getMinute())) * 2) < 15)) {
+                throw new NoSuchExceptionElectronicQueue("Time busy");
+            }
+        }
     }
 
     /**

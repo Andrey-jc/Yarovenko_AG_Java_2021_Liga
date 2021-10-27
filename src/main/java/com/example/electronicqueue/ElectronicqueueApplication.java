@@ -2,10 +2,7 @@ package com.example.electronicqueue;
 
 import com.example.electronicqueue.dto.ReservationDTO;
 import com.example.electronicqueue.dto.RoleDTO;
-import com.example.electronicqueue.dto.form.RegistrationRequest;
-import com.example.electronicqueue.dto.form.ReservationAddForm;
-import com.example.electronicqueue.dto.form.RoleToUserForm;
-import com.example.electronicqueue.dto.form.UserFormAllReservationForUser;
+import com.example.electronicqueue.dto.form.*;
 import com.example.electronicqueue.service.ReservationService;
 import com.example.electronicqueue.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -51,7 +48,7 @@ public class ElectronicqueueApplication {
             userService.addRoleToUser(formRole);
 
             ReservationAddForm reservationAddForm1 = new ReservationAddForm(
-                    "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("19:15"));
+                    "Alina", LocalDate.parse("2021-10-27"), LocalTime.parse("14:00"));
             ReservationAddForm reservationAddForm2 = new ReservationAddForm(
                     "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("19:30"));
             ReservationAddForm reservationAddForm3 = new ReservationAddForm(
@@ -69,9 +66,9 @@ public class ElectronicqueueApplication {
             ReservationAddForm reservationAddForm9 = new ReservationAddForm(
                     "Natali", LocalDate.parse("2021-11-29"), LocalTime.parse("18:45"));
 
-            reservationService.addReservation(reservationAddForm1);
             reservationService.addReservation(reservationAddForm2);
             reservationService.addReservation(reservationAddForm3);
+            reservationService.addReservation(reservationAddForm1);
             reservationService.addReservation(reservationAddForm5);
             reservationService.addReservation(reservationAddForm4);
             reservationService.addReservation(reservationAddForm6);
@@ -86,15 +83,18 @@ public class ElectronicqueueApplication {
             reservationService.changeStatusReservationToAccept(4L);
             reservationService.changeStatusReservationToAccept(5L);
             reservationService.changeStatusReservationToAccept(6L);
-//
+
+            ReservationCanceledOrChangeStatusForm form = new ReservationCanceledOrChangeStatusForm(3L, "Alina");
+            reservationService.changeStatusReservationToArrived(form);
+
 //            //ближайшая активная бронь
-//            ReservationDTO reservationUsers = reservationService.getActiveReservationFirst();
-//            System.out.println(reservationUsers.toString());
-//
-//            // список всех активных броней пользователя
-//            UserFormAllReservationForUser userFormAllReservationForUser = new UserFormAllReservationForUser("Natali");
-//            List<ReservationDTO> allReservationForUser = reservationService.getAllReservationForUser(userFormAllReservationForUser);
-//            System.out.println(allReservationForUser);
+            ReservationDTO reservationUsers = reservationService.getActiveReservationFirst();
+            System.out.println(reservationUsers.toString());
+
+            // список всех активных броней пользователя
+            UserFormAllReservationForUser userFormAllReservationForUser = new UserFormAllReservationForUser("Natali");
+            List<ReservationDTO> allReservationForUser = reservationService.getAllReservationForUser(userFormAllReservationForUser);
+            System.out.println(allReservationForUser);
         };
     }
 }
