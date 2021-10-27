@@ -32,14 +32,14 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     @ApiOperation(value = "Get user for he id")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(userService.getUser(id));
+    public UserDTO getUser(@PathVariable("id") Long id) {
+        return userService.getUser(id);
     }
 
     @GetMapping("/admin/users")
     @ApiOperation(value = "Enumerates all Users entities")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+    public List<UserDTO> getUsers() {
+        return userService.getUsers();
     }
 
     @PostMapping("/admin/role/save")
@@ -51,8 +51,8 @@ public class UserController {
 
     @PutMapping("/admin/role/add")
     @ApiOperation(value = "Save new role for database for user")
-    public ResponseEntity<UserDTO> addRoleToUser(@RequestBody RoleToUserForm form) {
-        return ResponseEntity.ok().body(userService.addRoleToUser(form));
+    public UserDTO addRoleToUser(@RequestBody RoleToUserForm form) {
+        return userService.addRoleToUser(form);
     }
 
     @DeleteMapping("/admin/users/delete/{id}")

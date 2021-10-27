@@ -23,11 +23,12 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
 
+//    TODO: убрать респонсе энтети
     @GetMapping("/reservations/users")
     @ApiOperation(value = "Get all active reservation the current user")
-    public ResponseEntity<List<ReservationDTO>> getAllActiveReservationUser(
+    public List<ReservationDTO> getAllActiveReservationUser(
             @RequestBody UserFormAllReservationForUser login) {
-        return ResponseEntity.ok().body(reservationService.getAllReservationForUser(login));
+        return reservationService.getAllReservationForUser(login);
     }
 
     @DeleteMapping("/reservations/users/delete")
@@ -39,14 +40,14 @@ public class ReservationController {
 
     @PostMapping("/reservations/users/add")
     @ApiOperation(value = "Add reservation user")
-    public ResponseEntity<ReservationDTO> addReservation(@RequestBody ReservationAddForm form) throws ParseException {
-        return ResponseEntity.ok().body(reservationService.addReservation(form));
+    public ReservationDTO addReservation(@RequestBody ReservationAddForm form) throws ParseException {
+        return reservationService.addReservation(form);
     }
 
     @PutMapping("/reservations/users")
     @ApiOperation(value = "Mark user on arrival")
-    public ResponseEntity<ReservationDTO> changeStatusArrived(@RequestBody ReservationCanceledOrChangeStatusForm form) {
-        return ResponseEntity.ok().body(reservationService.changeStatusReservationToArrived(form));
+    public ReservationDTO changeStatusArrived(@RequestBody ReservationCanceledOrChangeStatusForm form) {
+        return reservationService.changeStatusReservationToArrived(form);
     }
 
     @GetMapping("/activate/*/{id}")
@@ -57,8 +58,8 @@ public class ReservationController {
 
     @GetMapping("/reservations/admin")
     @ApiOperation(value = "Get first active reservation")
-    public ResponseEntity<ReservationDTO> getAllActiveReservationFirst() {
-        return ResponseEntity.ok().body(reservationService.getActiveReservationFirst());
+    public ReservationDTO getAllActiveReservationFirst() {
+        return reservationService.getActiveReservationFirst();
     }
 
     @DeleteMapping("/reservations/admin/delete/{id}")
@@ -84,7 +85,7 @@ public class ReservationController {
 
     @GetMapping("/reservations/users/busytime")
     @ApiOperation(value = "Get all busy time for the current day")
-    public ResponseEntity<List<LocalTime>> getAllBusyTimeForDay(@RequestBody ReservationFormForAllFreeTimeToDay form) {
-        return ResponseEntity.ok().body(reservationService.getAllBusyTimeForDay(form));
+    public List<LocalTime> getAllBusyTimeForDay(@RequestBody ReservationFormForAllFreeTimeToDay form) {
+        return reservationService.getAllBusyTimeForDay(form);
     }
 }
