@@ -9,7 +9,7 @@ import com.example.electronicqueue.dto.form.UserFormAllReservationForUser;
 import com.example.electronicqueue.entity.Reservation;
 import com.example.electronicqueue.entity.Status;
 import com.example.electronicqueue.entity.UserApp;
-import com.example.electronicqueue.exceptions_handling.NoSuchExceptionElectronicQueue;
+import com.example.electronicqueue.exceptions_handling.NoSuchElectronicQueueException;
 import com.example.electronicqueue.repository.ReservationRepository;
 import com.example.electronicqueue.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +84,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (loginUser.equals(form.getLogin())) {
             reservationRepository.deleteById(form.getId());
         } else {
-            throw new NoSuchExceptionElectronicQueue("Not your reservation");
+            throw new NoSuchElectronicQueueException("Not your reservation");
         }
     }
 
@@ -120,7 +120,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDTO getActiveReservationFirst() {
         Long id = reservationRepository.getFirstByStatusOrderByDateTime(Status.ACCEPT.getName());
         if (id == null) {
-            throw new NoSuchExceptionElectronicQueue("No confirmed reservations");
+            throw new NoSuchElectronicQueueException("No confirmed reservations");
         }
         Reservation reservation = reservationRepository.getById(id);
         return new ReservationDTO(reservation);
@@ -151,7 +151,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (optional.isPresent() && login.equals(optional.get().getUserApp().getLogin())) {
             reservationRepository.updateStatusById(form.getId(), Status.ARRIVED.getName());
         } else {
-            throw new NoSuchExceptionElectronicQueue("Bad login or number reservation");
+            throw new NoSuchElectronicQueueException("Bad login or number reservation");
         }
         return new ReservationDTO(reservationRepository.getById(form.getId()));
     }
@@ -177,7 +177,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDTO nextReservationArrived() {
         Long idReservation = reservationRepository.getFirstByStatusOrderByDateTime(Status.ARRIVED.getName());
         if (idReservation == null) {
-            throw new NoSuchExceptionElectronicQueue("No users who came");
+            throw new NoSuchElectronicQueueException("No users who came");
         }
         Reservation reservation = reservationRepository.getById(idReservation);
         if (checkCurrentTime(reservation)) {
@@ -277,7 +277,7 @@ public class ReservationServiceImpl implements ReservationService {
                 (!currentMonth ||
                         today && (timeHoursNowTru && minuteMore || timeHoursMore) || notToday))
         ) {
-            throw new NoSuchExceptionElectronicQueue("You reservation date not working hours or incorrect date");
+            throw new NoSuchElectronicQueueException("You reservation date not working hours or incorrect date");
         }
     }
 
@@ -295,9 +295,9 @@ public class ReservationServiceImpl implements ReservationService {
             boolean timeIsTrue = (r.getTime().getHour()) == reservation.getTime().getHour();
             boolean minuteIsTrue = r.getTime().getMinute() == reservation.getTime().getMinute();
             if (monthIsTrue && (timeIsTrue && minuteIsTrue)) {
-                throw new NoSuchExceptionElectronicQueue("Time busy");
+                throw new NoSuchElectronicQueueException("Time busy");
             } else if (monthIsTrue && timeIsTrue && ((Math.abs((r.getTime().getMinute()) - (reservation.getTime().getMinute())) * 2) < 15)) {
-                throw new NoSuchExceptionElectronicQueue("Time busy");
+                throw new NoSuchElectronicQueueException("Time busy");
             }
         }
     }
@@ -322,5 +322,3 @@ public class ReservationServiceImpl implements ReservationService {
                 id);
     }
 }
-
-

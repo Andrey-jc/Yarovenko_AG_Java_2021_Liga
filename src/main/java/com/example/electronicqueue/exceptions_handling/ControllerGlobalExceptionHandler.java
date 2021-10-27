@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ControllerGlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<UserIncorrectData> handleException(NoSuchExceptionElectronicQueue exception) {
+    public ResponseEntity<UserIncorrectData> handleException(NoSuchElectronicQueueException exception) {
         UserIncorrectData data = new UserIncorrectData();
         data.setInfo(exception.getMessage());
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);

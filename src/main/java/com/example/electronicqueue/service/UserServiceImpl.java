@@ -6,11 +6,10 @@ import com.example.electronicqueue.dto.form.RegistrationRequest;
 import com.example.electronicqueue.dto.form.RoleToUserForm;
 import com.example.electronicqueue.entity.Role;
 import com.example.electronicqueue.entity.UserApp;
-import com.example.electronicqueue.exceptions_handling.NoSuchExceptionElectronicQueue;
+import com.example.electronicqueue.exceptions_handling.NoSuchElectronicQueueException;
 import com.example.electronicqueue.repository.RoleRepository;
 import com.example.electronicqueue.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTO addRoleToUser(RoleToUserForm form) {
         UserApp userApp = userRepository.findByLogin(form.getUserName());
         if (userApp == null) {
-            throw new NoSuchExceptionElectronicQueue("User not found in the database");
+            throw new NoSuchElectronicQueueException("User not found in the database");
         } else {
             Role role = roleRepository.findByName(form.getRoleName());
             userApp.setRole(role);

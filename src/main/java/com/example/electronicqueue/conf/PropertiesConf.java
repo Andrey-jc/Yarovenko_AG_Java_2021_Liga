@@ -10,7 +10,7 @@ public class PropertiesConf {
     @Bean
     public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
-        properties.setLocation(new ClassPathResource("time.properties"));
+        properties.setLocation(new ClassPathResource("custom.properties"));
         return properties;
     }
 }
