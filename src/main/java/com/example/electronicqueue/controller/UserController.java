@@ -26,7 +26,7 @@ public class UserController {
     @PostMapping("/registration")
     @ApiOperation(value = "Register user")
     public ResponseEntity<UserDTO> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/registration").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/v1/registration").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(registrationRequest));
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PutMapping("/admin/role/add")
-    @ApiOperation(value = "Save new role for database")
+    @ApiOperation(value = "Save new role for database for user")
     public ResponseEntity<UserDTO> addRoleToUser(@RequestBody RoleToUserForm form) {
         return ResponseEntity.ok().body(userService.addRoleToUser(form));
     }

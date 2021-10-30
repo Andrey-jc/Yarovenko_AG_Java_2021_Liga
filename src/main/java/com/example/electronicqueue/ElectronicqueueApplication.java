@@ -51,23 +51,23 @@ public class ElectronicqueueApplication {
             userService.addRoleToUser(formRole);
 
             ReservationAddForm reservationAddForm1 = new ReservationAddForm(
-                    "Alina", LocalDate.parse("2021-10-25"), LocalTime.parse("19:15"));
+                    "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("19:15"));
             ReservationAddForm reservationAddForm2 = new ReservationAddForm(
-                    "Alina", LocalDate.parse("2021-10-25"), LocalTime.parse("18:45"));
+                    "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("19:30"));
             ReservationAddForm reservationAddForm3 = new ReservationAddForm(
-                    "Alina", LocalDate.parse("2021-10-25"), LocalTime.parse("19:30"));
+                    "Alina", LocalDate.parse("2021-11-25"), LocalTime.parse("19:30"));
             ReservationAddForm reservationAddForm4 = new ReservationAddForm(
-                    "Natali", LocalDate.parse("2021-10-25"), LocalTime.parse("19:45"));
+                    "Natali", LocalDate.parse("2021-11-25"), LocalTime.parse("19:45"));
             ReservationAddForm reservationAddForm5 = new ReservationAddForm(
-                    "Natali", LocalDate.parse("2021-10-27"), LocalTime.parse("12:00"));
+                    "Natali", LocalDate.parse("2021-11-26"), LocalTime.parse("12:00"));
             ReservationAddForm reservationAddForm6 = new ReservationAddForm(
-                    "Natali", LocalDate.parse("2021-10-27"), LocalTime.parse("08:00"));
+                    "Natali", LocalDate.parse("2021-11-26"), LocalTime.parse("08:00"));
             ReservationAddForm reservationAddForm7 = new ReservationAddForm(
-                    "Natali", LocalDate.parse("2021-10-27"), LocalTime.parse("09:00"));
+                    "Natali", LocalDate.parse("2021-11-26"), LocalTime.parse("09:00"));
             ReservationAddForm reservationAddForm8 = new ReservationAddForm(
-                    "Andrey", LocalDate.parse("2021-10-28"), LocalTime.parse("19:20"));
+                    "Andrey", LocalDate.parse("2021-11-29"), LocalTime.parse("19:20"));
             ReservationAddForm reservationAddForm9 = new ReservationAddForm(
-                    "Natali", LocalDate.parse("2021-10-29"), LocalTime.parse("18:45"));
+                    "Natali", LocalDate.parse("2021-11-29"), LocalTime.parse("18:45"));
 
             reservationService.addReservation(reservationAddForm1);
             reservationService.addReservation(reservationAddForm2);
@@ -86,15 +86,15 @@ public class ElectronicqueueApplication {
             reservationService.changeStatusReservationToAccept(4L);
             reservationService.changeStatusReservationToAccept(5L);
             reservationService.changeStatusReservationToAccept(6L);
-
-            //ближайшая активная бронь
-            ReservationDTO reservationUsers = reservationService.getActiveReservationFirst();
-            System.out.println(reservationUsers.toString());
-
-            // список всех активных броней пользователя
-            UserFormAllReservationForUser userFormAllReservationForUser = new UserFormAllReservationForUser("Natali");
-            List<ReservationDTO> allReservationForUser = reservationService.getAllReservationForUser(userFormAllReservationForUser);
-            System.out.println(allReservationForUser);
+//
+//            //ближайшая активная бронь
+//            ReservationDTO reservationUsers = reservationService.getActiveReservationFirst();
+//            System.out.println(reservationUsers.toString());
+//
+//            // список всех активных броней пользователя
+//            UserFormAllReservationForUser userFormAllReservationForUser = new UserFormAllReservationForUser("Natali");
+//            List<ReservationDTO> allReservationForUser = reservationService.getAllReservationForUser(userFormAllReservationForUser);
+//            System.out.println(allReservationForUser);
         };
     }
 }

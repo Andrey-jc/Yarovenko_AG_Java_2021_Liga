@@ -38,7 +38,7 @@ public class ReservationController {
     }
 
     @PostMapping("/reservations/users/add")
-    @ApiOperation(value = "Canceled reservation user")
+    @ApiOperation(value = "Add reservation user")
     public ResponseEntity<ReservationDTO> addReservation(@RequestBody ReservationAddForm form) throws ParseException {
         return ResponseEntity.ok().body(reservationService.addReservation(form));
     }

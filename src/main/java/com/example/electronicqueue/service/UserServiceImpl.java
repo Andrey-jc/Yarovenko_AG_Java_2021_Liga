@@ -1,11 +1,12 @@
 package com.example.electronicqueue.service;
 
-import com.example.electronicqueue.dto.form.RegistrationRequest;
 import com.example.electronicqueue.dto.RoleDTO;
-import com.example.electronicqueue.dto.form.RoleToUserForm;
 import com.example.electronicqueue.dto.UserDTO;
+import com.example.electronicqueue.dto.form.RegistrationRequest;
+import com.example.electronicqueue.dto.form.RoleToUserForm;
 import com.example.electronicqueue.entity.Role;
 import com.example.electronicqueue.entity.UserApp;
+import com.example.electronicqueue.exceptions_handling.NoSuchExceptionElectronicQueue;
 import com.example.electronicqueue.repository.RoleRepository;
 import com.example.electronicqueue.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -39,11 +39,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserApp userApp = userRepository.findByLogin(username);
         if (userApp == null) {
-            log.error("User {} not found in the database", username);
             throw new UsernameNotFoundException("User not found in the database");
         } else {
-            log.info("User found in the database: {}", username);
-
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 //        изменить тут если будет необходимо много ролей для 1го пользователя
@@ -64,13 +61,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTO addRoleToUser(RoleToUserForm form) {
         UserApp userApp = userRepository.findByLogin(form.getUserName());
         if (userApp == null) {
-            log.error("User {} not found in the database", form.getUserName());
+            throw new NoSuchExceptionElectronicQueue("User not found in the database");
         } else {
             Role role = roleRepository.findByName(form.getRoleName());
             userApp.setRole(role);
             userRepository.save(userApp);
         }
-        assert userApp != null;
         return new UserDTO(userApp);
     }
 
