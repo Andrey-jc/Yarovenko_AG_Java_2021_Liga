@@ -14,6 +14,7 @@ import com.example.electronicqueue.repository.ReservationRepository;
 import com.example.electronicqueue.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -233,13 +234,19 @@ public class ReservationServiceImpl implements ReservationService {
 
     /**
      * метод для подтверждения открытой брони (после перехода по ссылке)
-     *
+     * проверяем текущего залогиненого пользователя с тем чья бронь
      * @param id брони
+     * @param username имя пользователя чья бронь
      */
     @Transactional
     @Override
-    public void changeStatusReservationToAccept(Long id) {
-        reservationRepository.updateStatusById(id, Status.ACCEPT.getName());
+    public void changeStatusReservationToAccept(Long id, String username) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username.equals(name)) {
+            reservationRepository.updateStatusById(id, Status.ACCEPT.getName());
+        } else {
+            throw new NoSuchElectronicQueueException("Invalid user");
+        }
     }
 
     /**
@@ -313,12 +320,13 @@ public class ReservationServiceImpl implements ReservationService {
         String uuid = UUID.randomUUID().toString();
         return String.format(
                 "Hello, %s! \n" +
-                        "Welcome to our company. Please, visit next link: http://%s:%s/api/v1/activate/%s/%s " +
+                        "Welcome to our company. Please, visit next link: http://%s:%s/api/v1/activate/%s/%s/%s " +
                         "for accept you reservation",
                 userApp.getName(),
                 host,
                 port,
-                uuid,
-                id);
+                userApp.getLogin(),
+                id,
+                uuid);
     }
 }

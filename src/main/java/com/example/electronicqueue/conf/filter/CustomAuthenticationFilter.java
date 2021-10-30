@@ -2,7 +2,6 @@ package com.example.electronicqueue.conf.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,14 +22,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final AuthenticationManager authenticationManager;
 
-    @Value("${app.time.jwt}")
-    private Integer time;
+    private final Integer time;
 
-    @Value("${app.secret}")
-    private String secret;
+    private final String secret;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, String secret, Integer time) {
         this.authenticationManager = authenticationManager;
+        this.time = time;
+        this.secret = secret;
     }
 
     @Override

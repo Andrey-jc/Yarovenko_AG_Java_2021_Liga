@@ -34,7 +34,7 @@ public interface ReservationService {
 
     List<LocalTime> getAllBusyTimeForDay(ReservationFormForAllFreeTimeToDay day);
 
-    void changeStatusReservationToAccept(Long id);
+    void changeStatusReservationToAccept(Long id, String User);
 
     void checkForNoAcceptReservation();
 }

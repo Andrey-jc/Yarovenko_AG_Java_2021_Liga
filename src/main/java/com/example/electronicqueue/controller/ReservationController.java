@@ -50,10 +50,10 @@ public class ReservationController {
         return reservationService.changeStatusReservationToArrived(form);
     }
 
-    @GetMapping("/activate/*/{id}")
+    @GetMapping("/activate/{user}/{id}/*")
     @ApiOperation(value = "Accept reservation for user")
-    public void acceptReservation(@PathVariable("id") Long id) {
-        reservationService.changeStatusReservationToAccept(id);
+    public void acceptReservation(@PathVariable("id") Long id, @PathVariable("user") String user) {
+        reservationService.changeStatusReservationToAccept(id, user);
     }
 
     @GetMapping("/reservations/admin")

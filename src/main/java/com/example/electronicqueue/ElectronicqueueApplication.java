@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,7 +49,7 @@ public class ElectronicqueueApplication {
             userService.addRoleToUser(formRole);
 
             ReservationAddForm reservationAddForm1 = new ReservationAddForm(
-                    "Alina", LocalDate.parse("2021-10-27"), LocalTime.parse("14:00"));
+                    "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("18:00"));
             ReservationAddForm reservationAddForm2 = new ReservationAddForm(
                     "Alina", LocalDate.parse("2021-11-24"), LocalTime.parse("19:30"));
             ReservationAddForm reservationAddForm3 = new ReservationAddForm(
@@ -76,20 +77,8 @@ public class ElectronicqueueApplication {
             reservationService.addReservation(reservationAddForm8);
             reservationService.addReservation(reservationAddForm9);
 
-            // изменить статус на accept
-            reservationService.changeStatusReservationToAccept(1L);
-            reservationService.changeStatusReservationToAccept(2L);
-            reservationService.changeStatusReservationToAccept(3L);
-            reservationService.changeStatusReservationToAccept(4L);
-            reservationService.changeStatusReservationToAccept(5L);
-            reservationService.changeStatusReservationToAccept(6L);
-
             ReservationCanceledOrChangeStatusForm form = new ReservationCanceledOrChangeStatusForm(3L, "Alina");
             reservationService.changeStatusReservationToArrived(form);
-
-//            //ближайшая активная бронь
-            ReservationDTO reservationUsers = reservationService.getActiveReservationFirst();
-            System.out.println(reservationUsers.toString());
 
             // список всех активных броней пользователя
             UserFormAllReservationForUser userFormAllReservationForUser = new UserFormAllReservationForUser("Natali");
